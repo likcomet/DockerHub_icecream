@@ -14,8 +14,8 @@ RUN if [ "`ping -c 1 -w 1 updateproxy.neople.co.kr | grep % | cut -f3 -d"," | cu
     git config --global url."https://".insteadOf git://;\
     git config --global url."http://".insteadOf git://; fi
 
-RUN apt-get update
-RUN apt-get install -y libcap-ng-dev liblzo2-dev git docbook2x vim locales
+RUN apt-get update -y --force-yes
+RUN apt-get install -y libcap-ng-dev liblzo2-dev git docbook2x vim locales --force-yes
 RUN git clone https://github.com/icecc/icecream.git
 WORKDIR icecream
 #Enter a tag name if you want a specific icecream version
