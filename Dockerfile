@@ -18,7 +18,7 @@ RUN apt-get update -y --force-yes
 RUN apt-get install -y libcap-ng-dev liblzo2-dev git docbook2x vim locales --force-yes
 RUN git clone https://github.com/icecc/icecream.git
 WORKDIR icecream
-#Enter a tag name if you want a specific icecream version
+#Enter a icecream tag name if you want a specific icecream version
 RUN git checkout 1.1rc2
 #Tags Url : https://github.com/icecc/icecream/tags
 RUN ./autogen.sh
