@@ -17,10 +17,10 @@ RUN if [ "`ping -c 1 -w 1 updateproxy.neople.co.kr | grep % | cut -f3 -d"," | cu
 RUN apt-get update
 RUN apt-get install -y libcap-ng-dev liblzo2-dev git docbook2x vim locales
 RUN git clone https://github.com/icecc/icecream.git
+WORKDIR icecream
 #Enter a tag name if you want a specific icecream version
 RUN git checkout 1.1rc2
 #Tags Url : https://github.com/icecc/icecream/tags
-WORKDIR icecream
 RUN ./autogen.sh
 RUN ./configure
 RUN make
