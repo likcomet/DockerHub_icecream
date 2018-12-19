@@ -20,7 +20,7 @@ RUN git clone https://github.com/icecc/icecream.git
 WORKDIR icecream
 #Enter a icecream tag name if you want a specific icecream version
 #Tags Url : https://github.com/icecc/icecream/tags <--
-RUN git checkout 1.1rc2
+#RUN git checkout 1.1rc2
 RUN ./autogen.sh
 RUN ./configure
 RUN make
