@@ -1,4 +1,4 @@
-FROM gcc:4.8
+FROM gcc:latest
 
 RUN useradd icecc
 RUN alias ll="ls -al"
@@ -15,7 +15,7 @@ RUN if [ "`ping -c 1 -w 1 updateproxy.neople.co.kr | grep % | cut -f3 -d"," | cu
     git config --global url."http://".insteadOf git://; fi
 
 RUN apt-get update -y --force-yes
-RUN apt-get install -y libcap-ng-dev liblzo2-dev git docbook2x vim locales --force-yes
+RUN apt-get install -y libcap-ng-dev liblzo2-dev git docbook2x vim locales zstd libzstd-dev libarchive-dev cron logrotate --force-yes
 RUN git clone https://github.com/icecc/icecream.git
 WORKDIR icecream
 #Enter a icecream tag name if you want a specific icecream version
@@ -26,13 +26,15 @@ RUN ./configure
 RUN make
 RUN make install
 ENV PATH "/home/icecc/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-RUN touch /var/log/icecc.log /var/log/icecc-scheduler
-RUN chown icecc:icecc /var/log/icecc.log /var/log/icecc-scheduler
-RUN chown icecc:icecc /var/log/icecc-scheduler
+RUN touch /var/log/iceccd.log /var/log/icecc-scheduler.log
+RUN chown icecc:icecc /var/log/iceccd.log /var/log/icecc-scheduler.log
+RUN chown icecc:icecc /var/log/icecc-scheduler.log
 #CMD iceccd -d -s $ICECREAM_SCHEDULER_HOST -l /var/log/icecc.log && tail -f /var/log/icecc.log
-ADD ./Enable-icecc-scheduler.sh /root/Enable-icecc-scheduler.sh
+ADD ./iceccd /etc/logrotate.d/iceccd
+ADD ./icecc-scheduler /etc/logrotate.d/icecc-scheduler
+ADD ./Enable-iceccd-scheduler.sh /root/Enabled-icecc-scheduler.sh
 RUN chmod 755 /root/*.sh
-CMD /root/Enable-icecc-scheduler.sh
+CMD /root/Enable-iceccd-scheduler.sh
 #CMD /root/Enable-icecc-scheduler.sh
 EXPOSE 10245/tcp 8765/tcp 8766/tcp 8765/udp
 #ENTRYPOINT /root/Enable-icecc-scheduler.sh

@@ -1,0 +1,7 @@
+/var/log/icecc-scheduler.log {
+    # ftpd doesn't handle SIGHUP properly
+    daily
+    rotate 100
+    compress
+    missingok
+}
