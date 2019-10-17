@@ -32,7 +32,7 @@ RUN chown icecc:icecc /var/log/icecc-scheduler.log
 #CMD iceccd -d -s $ICECREAM_SCHEDULER_HOST -l /var/log/icecc.log && tail -f /var/log/icecc.log
 ADD ./iceccd /etc/logrotate.d/iceccd
 ADD ./icecc-scheduler /etc/logrotate.d/icecc-scheduler
-ADD ./Enable-iceccd-scheduler.sh /root/Enabled-icecc-scheduler.sh
+ADD ./Enable-iceccd-scheduler.sh /root/Enabled-iceccd-scheduler.sh
 RUN chmod 755 /root/*.sh
 CMD /root/Enable-iceccd-scheduler.sh
 #CMD /root/Enable-icecc-scheduler.sh
