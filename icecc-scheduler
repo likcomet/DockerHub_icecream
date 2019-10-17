@@ -4,4 +4,5 @@
     rotate 100
     compress
     missingok
+    copytruncate
 }
