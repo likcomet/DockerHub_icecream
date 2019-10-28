@@ -4,10 +4,10 @@ CPUCOUNT=`nproc`
 touch /var/log/iceccd.log /var/log/icecc-scheduler.log
 chown icecc:icecc /var/log/iceccd.log /var/log/icecc-scheduler.log
 
-MODE="$1"
-ENABLE_SCHEDULER="$2"
-SCHEDULER_IP="$3"
-CPUS="$4"
+#MODE="$1"
+#ENABLE_SCHEDULER="$2"
+#SCHEDULER_IP="$3"
+#CPUS="$4"
 
 
 case $MODE in
@@ -26,12 +26,12 @@ esac
 
 
 case $ENABLE_SCHEDULER in
-        yes) echo "icecc-scheduler -d -n $netname -l /var/log/icecc-scheduler.log -p $scheduler_port -vvvv "
-             echo "iceccd -d -s $SCHEDULER_IP -m $CPUS -n $netname -l /var/log/iceccd.log -p $iceccd_port -vvvv;tail -f /var/log/icecc*.log"
+        yes) icecc-scheduler -d -n $netname -l /var/log/icecc-scheduler.log -p $scheduler_port -vvvv
+             iceccd -d -s $SCHEDULER_IP -m $CPUS -n $netname -l /var/log/iceccd.log -p $iceccd_port -vvvv;tail -f /var/log/icecc*.log
         ;;
-        no)  echo "iceccd -d -s $SCHEDULER_IP -m $CPUS -n $netname -l /var/log/iceccd.log -p $iceccd_port -vvvv;tail -f /var/log/icecc*.log"
+        no)  iceccd -d -s $SCHEDULER_IP -m $CPUS -n $netname -l /var/log/iceccd.log -p $iceccd_port -vvvv;tail -f /var/log/icecc*.log
         ;;
-        *)   echo "select live/test"
+        *)   echo "select scheduler enable yes/no"
 	     exit 1;
         ;;
 esac
