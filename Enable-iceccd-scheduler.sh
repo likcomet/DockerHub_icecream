@@ -3,13 +3,39 @@ set -e
 CPUCOUNT=`nproc`
 touch /var/log/iceccd.log /var/log/icecc-scheduler.log
 chown icecc:icecc /var/log/iceccd.log /var/log/icecc-scheduler.log
-case $ICECREAM_SCHEDULER in
-	yes) icecc-scheduler -d -n neople -l /var/log/icecc-scheduler.log -vvvv
-             iceccd -d -s $ICECREAM_SCHEDULER_HOST -m `expr ${CPUCOUNT} / 2` -n neople -l /var/log/iceccd.log -vvvv;tail -f /var/log/icecc*.log
+
+MODE="$1"
+ENABLE_SCHEDULER="$2"
+SCHEDULER_IP="$3"
+CPUS="$4"
+
+
+case $MODE in
+	live) scheduler_port=8765
+	      iceccd_port=10245
+	      netname=$MODE
 	;;
-	no)  iceccd -d -s $ICECREAM_SCHEDULER_HOST -m `expr ${CPUCOUNT} - 4` -n neople -l /var/log/iceccd.log -vvvv;tail -f /var/log/icecc*.log
+	test) scheduler_port=28765
+	      iceccd_port=20245
+	      netname=$MODE
 	;;
-	*)   echo "Null"
+	*) echo "select live/test"
+	   exit 1;
 	;;
 esac
-#iceccd -d -s $ICECREAM_SCHEDULER_HOST -m 35 -n neople -l /var/log/icecc.log && tail -f /var/log/icecc.log
+
+
+case $ENABLE_SCHEDULER in
+        yes) echo "icecc-scheduler -d -n $netname -l /var/log/icecc-scheduler.log -p $scheduler_port -vvvv "
+             echo "iceccd -d -s $SCHEDULER_IP -m $CPUS -n $netname -l /var/log/iceccd.log -p $iceccd_port -vvvv;tail -f /var/log/icecc*.log"
+        ;;
+        no)  echo "iceccd -d -s $SCHEDULER_IP -m $CPUS -n $netname -l /var/log/iceccd.log -p $iceccd_port -vvvv;tail -f /var/log/icecc*.log"
+        ;;
+        *)   echo "select live/test"
+	     exit 1;
+        ;;
+esac
+
+
+
+

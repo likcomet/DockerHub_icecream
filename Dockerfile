@@ -15,6 +15,7 @@ RUN if [ "`ping -c 1 -w 1 updateproxy.neople.co.kr | grep % | cut -f3 -d"," | cu
 
 RUN apt-get update -y --force-yes
 RUN apt-get install -y libcap-ng-dev liblzo2-dev git docbook2x vim locales zstd libzstd-dev libarchive-dev cron logrotate net-tools --force-yes
+RUN /etc/init.d/cron start
 RUN git clone https://github.com/icecc/icecream.git
 WORKDIR icecream
 #Enter a icecream tag name if you want a specific icecream version
