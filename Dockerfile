@@ -35,4 +35,4 @@ ADD ./iceccd /etc/logrotate.d/iceccd
 ADD ./icecc-scheduler /etc/logrotate.d/icecc-scheduler
 RUN chmod 755 /root/*.sh
 CMD /root/Enable-iceccd-scheduler.sh
-EXPOSE 10245/tcp 8765/tcp 8766/tcp 8765/udp
+EXPOSE 10245/tcp 8765/tcp 8766/tcp 8765/udp 20245/tcp 28765/tcp 28766/tcp 28765/udp

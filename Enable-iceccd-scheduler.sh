@@ -35,7 +35,3 @@ case $ENABLE_SCHEDULER in
 	     exit 1;
         ;;
 esac
-
-
-
-
