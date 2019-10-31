@@ -3,6 +3,7 @@ set -e
 CPUCOUNT=`nproc`
 touch /var/log/iceccd.log /var/log/icecc-scheduler.log
 chown icecc:icecc /var/log/iceccd.log /var/log/icecc-scheduler.log
+/etc/init.d/cron start
 
 #MODE="$1"
 #ENABLE_SCHEDULER="$2"

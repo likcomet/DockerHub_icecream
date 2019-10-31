@@ -15,7 +15,6 @@ RUN if [ "`ping -c 1 -w 1 updateproxy.neople.co.kr | grep % | cut -f3 -d"," | cu
 
 RUN apt-get update -y --force-yes
 RUN apt-get install -y libcap-ng-dev liblzo2-dev git docbook2x vim locales zstd libzstd-dev libarchive-dev cron logrotate net-tools --force-yes
-RUN /etc/init.d/cron start
 RUN git clone https://github.com/icecc/icecream.git
 WORKDIR icecream
 #Enter a icecream tag name if you want a specific icecream version
@@ -34,5 +33,6 @@ ADD ./Enable-iceccd-scheduler.sh /root/Enable-iceccd-scheduler.sh
 ADD ./iceccd /etc/logrotate.d/iceccd
 ADD ./icecc-scheduler /etc/logrotate.d/icecc-scheduler
 RUN chmod 755 /root/*.sh
+RUN /etc/init.d/cron start
 CMD /root/Enable-iceccd-scheduler.sh
 EXPOSE 10245/tcp 8765/tcp 8766/tcp 8765/udp 20245/tcp 28765/tcp 28766/tcp 28765/udp
