@@ -32,11 +32,22 @@ RUN apt-get update -y \
     asciidoc-base \
  && apt-get clean \
  && rm -r /var/lib/apt/lists/*
+
+
+# git clone master
 RUN git clone https://github.com/icecc/icecream.git
+
+# git cline specific branch
+#RUN git clone https://github.com/icecc/icecream.git --branch 1.3
+
 WORKDIR icecream
+
+# git switch branch
 #Enter a icecream tag name if you want a specific icecream version
 #Tags Url : https://github.com/icecc/icecream/tags <--
-#RUN git checkout 1.1rc2
+RUN git checkout 1.3
+
+# compile icecream
 RUN ./autogen.sh
 RUN ./configure
 RUN make

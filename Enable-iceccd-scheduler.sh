@@ -28,7 +28,7 @@ esac
 
 case $ENABLE_SCHEDULER in
         yes) icecc-scheduler -d -n $netname -l /var/log/icecc-scheduler.log -p $scheduler_port -vvvv;tail -f /var/log/icecc*.log
-             iceccd -d -s $SCHEDULER_IP -m $CPUS -n $netname -l /var/log/iceccd.log -p $iceccd_port --cache-limit $CACHE_SIZE  --no-remote -vvvv;tail -f /var/log/icecc*.log
+             #iceccd -d -s $SCHEDULER_IP -m $CPUS -n $netname -l /var/log/iceccd.log -p $iceccd_port --cache-limit $CACHE_SIZE  --no-remote -vvvv;tail -f /var/log/icecc*.log
         ;;
         no)  iceccd -d -s $SCHEDULER_IP -m $CPUS -n $netname -l /var/log/iceccd.log -p $iceccd_port --cache-limit $CACHE_SIZE -vvvv;tail -f /var/log/icecc*.log
         ;;
