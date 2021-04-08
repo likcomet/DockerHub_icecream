@@ -30,6 +30,8 @@ RUN apt-get update -y \
     apt-utils \
     asciidoc \
     asciidoc-base \
+    meson \
+    ninja-build \
  && apt-get clean \
  && rm -r /var/lib/apt/lists/*
 
@@ -52,6 +54,17 @@ RUN ./autogen.sh
 RUN ./configure
 RUN make
 RUN make install
+
+# compile icecream-sundae
+WORKDIR /usr/local/src
+RUN git clone https://github.com/JPEWdev/icecream-sundae.git \
+&&  cd icecream-sundae \
+&&  mkdir builder \
+&&  cd builder \
+&&  meson .. --buildtype release \
+&&  ninja \
+&&  ninja install
+
 ENV PATH "/home/icecc/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 RUN touch /var/log/iceccd.log /var/log/icecc-scheduler.log
 RUN chown icecc:icecc /var/log/iceccd.log /var/log/icecc-scheduler.log

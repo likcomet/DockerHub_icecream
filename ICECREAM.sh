@@ -9,7 +9,7 @@ txtpur='\e[1;35m' # Purple
 txtcyn='\e[1;36m' # Cyan
 txtrst='\e[0m'    # Text Reset
 
-DOCKER_VERSION="likcomet/icecream-compiler:release-1.4_build_v3"
+DOCKER_VERSION="likcomet/icecream-compiler:release-1.3_build_v10"
 
 LIST="10.30.20.222
 10.30.20.171
@@ -107,7 +107,7 @@ do
         case $1 in
                 live) if [ "$PLATFORM" == "VMware" ]
                                 then cpus=`expr $ALLCPUS - 2`
-                                else cpus=`expr $ALLCPUS - 9`
+                                else cpus=`expr $ALLCPUS - 10`
                       fi
         #               echo $cpus
         #               exit;
